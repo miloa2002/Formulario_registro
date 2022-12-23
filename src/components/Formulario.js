@@ -1,7 +1,8 @@
 import { useState } from "react";
 import React from "react";
+import Registro from "./Registro";
 
-const Formulario = (mensajeError) => {
+const Formulario = (mensajeError, mensaje2) => {
   const [nombre, setNombre] = useState("");
   const [pais, setPais] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -9,6 +10,8 @@ const Formulario = (mensajeError) => {
   const [confirmar, setConfirmar] = useState("");
 
   const [error, setError] = useState(false);
+
+  const [newRegistro, setNewRegistro] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +34,17 @@ const Formulario = (mensajeError) => {
       return;
     }
     setError(false);
+
+    setNombre("");
+    setPais("");
+    setDireccion("");
+    setContrasena("");
+    setConfirmar("");
+
+    setNewRegistro(true);
+    setTimeout(() => {
+      setNewRegistro(newRegistro);
+    }, 3000);
   };
 
   return (
@@ -56,6 +70,7 @@ const Formulario = (mensajeError) => {
             className="block w-full px-2 py-1 border-2 mt-4 rounded-lg outline-none"
             type="text"
             placeholder="Tu nombre completo"
+            value={nombre}
             onChange={(e) => setNombre(e.target.value)}
           />
         </div>
@@ -69,6 +84,7 @@ const Formulario = (mensajeError) => {
             className="block w-full px-2 py-1 border-2 mt-4 rounded-lg outline-none"
             type="text"
             placeholder="Tu país"
+            value={pais}
             onChange={(e) => setPais(e.target.value)}
           />
         </div>
@@ -82,6 +98,7 @@ const Formulario = (mensajeError) => {
             className="block w-full px-2 py-1 border-2 mt-4 rounded-lg outline-none"
             type="text"
             placeholder="Tu Dirección"
+            value={direccion}
             onChange={(e) => setDireccion(e.target.value)}
           />
         </div>
@@ -95,6 +112,7 @@ const Formulario = (mensajeError) => {
             className="block w-full px-2 py-1 border-2 mt-4 rounded-lg outline-none"
             type="password"
             placeholder="Contraseña"
+            value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
           />
         </div>
@@ -108,9 +126,12 @@ const Formulario = (mensajeError) => {
             className="block w-full px-2 py-1 border-2 mt-4 rounded-lg outline-none"
             type="password"
             placeholder="Confirmar contraseña"
+            value={confirmar}
             onChange={(e) => setConfirmar(e.target.value)}
           />
         </div>
+
+        {newRegistro && <Registro mensaje2="Registro correctamente" />}
 
         <input
           className="btn-registro bg-orange-500 p-2 text-white mt-3 font-bold rounded-md hover:bg-orange-600 cursor-pointer"
